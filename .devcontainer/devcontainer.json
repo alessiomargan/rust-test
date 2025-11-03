@@ -3,17 +3,29 @@
 {
 	"name": "Rust",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/rust:0-1-bullseye",
+	//"image": "mcr.microsoft.com/devcontainers/rust:0-1-bullseye",
+	"build": {
+        // Path is relative to the devcontainer.json file.
+        "dockerfile": "Dockerfile"
+    },
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"rust-lang.rust-analyzer",
 				"vadimcn.vscode-lldb",
-				"GitHub.copilot-nightly"
+				"GitHub.copilot-nightly",
+				"tamasfe.even-better-toml"  // Better TOML support for Cargo.toml
 			]
 		}
 	},
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "rustc --version"
+	// Enhanced postCreateCommand
+    "postCreateCommand": "echo '=== Rust Environment ===' && rustc --version && cargo --version && rustup show && echo '=== Setup Complete ==='"
+    
+	// Optional: Configure features
+    //"features": {
+    //    "ghcr.io/devcontainers/features/common-utils:2": {},
+    //    "ghcr.io/devcontainers/features/git:1": {}
+    //}
 }
